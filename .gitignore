@@ -1,0 +1,15 @@
+.DS_Store
+Servers/*
+.metadata
+.settings
+.classpath
+.project
+target/
+bin/
+rebel.xml
+.mvn
+mvnw*
+.idea/
+diagrama-classe-brewer.asta
+diagrama-classe-brewer.png
+brewer.iml
