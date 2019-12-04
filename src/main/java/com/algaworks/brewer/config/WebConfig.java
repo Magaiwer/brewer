@@ -27,12 +27,15 @@ import org.springframework.data.web.config.EnableSpringDataWebSupport;
 import org.springframework.format.datetime.standard.DateTimeFormatterRegistrar;
 import org.springframework.format.support.DefaultFormattingConversionService;
 import org.springframework.format.support.FormattingConversionService;
+import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.validation.Validator;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import org.springframework.web.servlet.view.jasperreports.JasperReportsMultiFormatView;
+import org.springframework.web.servlet.view.jasperreports.JasperReportsViewResolver;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.extras.springsecurity4.dialect.SpringSecurityDialect;
 import org.thymeleaf.spring4.SpringTemplateEngine;
@@ -41,10 +44,12 @@ import org.thymeleaf.spring4.view.ThymeleafViewResolver;
 import org.thymeleaf.templatemode.TemplateMode;
 import org.thymeleaf.templateresolver.ITemplateResolver;
 
+import javax.sql.DataSource;
 import java.math.BigDecimal;
 import java.time.format.DateTimeFormatter;
 import java.util.concurrent.TimeUnit;
 
+@EnableAsync
 @Configuration
 @ComponentScan(basePackageClasses = {CervejasController.class, TabelaItensSession.class})
 @EnableWebMvc
@@ -60,10 +65,23 @@ public class WebConfig extends WebMvcConfigurerAdapter implements ApplicationCon
     }
 
     @Bean
+    public  ViewResolver jasperReportViewResolver(DataSource dataSource) {
+        JasperReportsViewResolver jasperReportsViewResolver = new JasperReportsViewResolver();
+        jasperReportsViewResolver.setPrefix("classpath:/relatorios/");
+        jasperReportsViewResolver.setSuffix(".jasper");
+        jasperReportsViewResolver.setViewNames("relatorio_*");
+        jasperReportsViewResolver.setViewClass(JasperReportsMultiFormatView.class);
+        jasperReportsViewResolver.setJdbcDataSource(dataSource);
+        jasperReportsViewResolver.setOrder(0);
+        return jasperReportsViewResolver;
+    }
+
+    @Bean
     public ViewResolver viewResolver() {
         ThymeleafViewResolver resolver = new ThymeleafViewResolver();
         resolver.setTemplateEngine(templateEngine());
         resolver.setCharacterEncoding("UTF-8");
+        resolver.setOrder(1);
         return resolver;
     }
 

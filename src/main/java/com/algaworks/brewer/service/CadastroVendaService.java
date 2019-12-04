@@ -24,7 +24,7 @@ public class CadastroVendaService {
     private ApplicationEventPublisher publisher;
 
     @Transactional
-    public void salvar(Venda venda) {
+    public Venda salvar(Venda venda) {
 
         if(venda.isSalvarProibido()){
             throw new RuntimeException("Usuário tentando salvar uma venda proibida");
@@ -42,7 +42,7 @@ public class CadastroVendaService {
                     , venda.getHorarioEntrega() != null ? venda.getHorarioEntrega() : LocalTime.NOON));
         }
 
-        vendas.save(venda);
+        return vendas.saveAndFlush(venda);
     }
 
     @Transactional

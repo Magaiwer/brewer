@@ -91,13 +91,10 @@ public class FotoStorageLocal implements FotoStorage {
     private void criarPastas() {
         try {
             Files.createDirectories(this.local);
-            this.local = getDefault().getPath(this.local.toString(), "temp");
-            Files.createDirectories(this.local);
 
             if (LOGGER.isDebugEnabled()) {
                 LOGGER.debug("Pasta salvar foto criada");
                 LOGGER.debug("Pasta default" + this.local.toAbsolutePath());
-                LOGGER.debug("Pasta temporaria" + this.local.toAbsolutePath());
             }
         } catch (IOException e) {
             throw new RuntimeException("Erro criando pasta salvar foto", e);
