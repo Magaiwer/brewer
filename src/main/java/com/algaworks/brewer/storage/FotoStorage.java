@@ -6,7 +6,8 @@ import java.util.UUID;
 
 public interface FotoStorage {
 
-    final String THUMBNAIL_PREFIX = "thumbnail.";
+    String THUMBNAIL_PREFIX = "thumbnail.";
+    String URL = "http://localhost:8080/fotos/";
 
     String salvar(MultipartFile files[]);
 

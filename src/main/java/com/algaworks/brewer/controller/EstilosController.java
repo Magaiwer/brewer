@@ -77,7 +77,7 @@ public class EstilosController {
 
     @GetMapping("/{codigo}")
     public ModelAndView editar(@PathVariable Long codigo) {
-        Estilo estilo = estilos.findOne(codigo);
+        Estilo estilo = estilos.getOne(codigo);
         ModelAndView mv = novo(estilo);
         mv.addObject(estilo);
 

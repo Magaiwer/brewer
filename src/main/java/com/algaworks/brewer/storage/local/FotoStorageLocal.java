@@ -16,7 +16,7 @@ import java.nio.file.Path;
 
 import static java.nio.file.FileSystems.getDefault;
 
-@Profile("local")
+@Profile("!prod")
 @Component
 public class FotoStorageLocal implements FotoStorage {
 

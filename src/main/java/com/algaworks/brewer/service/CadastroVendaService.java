@@ -1,6 +1,5 @@
 package com.algaworks.brewer.service;
 
-import com.algaworks.brewer.Security.UsuarioSistema;
 import com.algaworks.brewer.model.StatusVenda;
 import com.algaworks.brewer.model.Venda;
 import com.algaworks.brewer.repository.Vendas;
@@ -33,7 +32,7 @@ public class CadastroVendaService {
         if (venda.isNova()) {
             venda.setDataCriacao(LocalDateTime.now());
         } else {
-            Venda vendaExistente = vendas.findOne(venda.getCodigo());
+            Venda vendaExistente = vendas.getOne(venda.getCodigo());
             venda.setDataCriacao(vendaExistente.getDataCriacao());
         }
 
@@ -57,7 +56,7 @@ public class CadastroVendaService {
     @Transactional
     public void cancelar(Venda venda) {
         System.out.println(venda.getUsuario().getNome());
-        Venda vendaExistente = vendas.findOne(venda.getCodigo());
+        Venda vendaExistente = vendas.getOne(venda.getCodigo());
 
         vendaExistente.setStatus(StatusVenda.CANCELADA);
         vendas.save(vendaExistente);

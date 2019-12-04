@@ -157,7 +157,7 @@ public class VendasController {
     @PostMapping("/item")
     public @ResponseBody
     ModelAndView adicionarItem(Long codigoCerveja, String uuid) {
-        Cerveja cerveja = cervejas.findOne(codigoCerveja);
+        Cerveja cerveja = cervejas.getOne(codigoCerveja);
         itensVenda.adicionarItem(uuid, cerveja, 1);
 
         return getModelAndViewTabelaItens(uuid);
@@ -165,7 +165,7 @@ public class VendasController {
 
     @PutMapping("/item/{codigoCerveja}")
     public ModelAndView alterarQuantidadeItem(@PathVariable Long codigoCerveja, Integer quantidade, String uuid) {
-        Cerveja cerveja = cervejas.findOne(codigoCerveja);
+        Cerveja cerveja = cervejas.getOne(codigoCerveja);
         itensVenda.alterarQuantidadeItens(uuid, cerveja, quantidade);
 
         return getModelAndViewTabelaItens(uuid);

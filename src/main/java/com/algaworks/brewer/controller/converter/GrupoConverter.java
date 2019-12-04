@@ -2,8 +2,10 @@ package com.algaworks.brewer.controller.converter;
 
 import com.algaworks.brewer.model.Grupo;
 import org.springframework.core.convert.converter.Converter;
+import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
+@Component
 public class GrupoConverter implements Converter<String, Grupo> {
 
 	@Override
