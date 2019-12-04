@@ -1,8 +1,8 @@
 # Brewer
 Projeto desenvolvido durante o curso spring framerwork experts algaworks.
+* Ementa do curso: [Ementa do curso](Ementa-Spring-Framework-Expert.pdf)
 
 Principais funcionalidades: 
-
 - Cadastro de cliente
 - Cadastro de cerveja,
 - Venda de cerveja com itens
@@ -22,6 +22,6 @@ Principais funcionalidades:
 - Consultas em arquivos externos 
 - Relatórios de vendas emitidas com JasperReports
 
-* Ementa do curso: [Ementa do curso](Ementa-Spring-Framework-Expert.pdf)
+
 
 
