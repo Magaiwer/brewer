@@ -2,7 +2,6 @@ package com.algaworks.brewer.model;
 
 import com.algaworks.brewer.repository.listener.CervejaEntityListener;
 import com.algaworks.brewer.validation.SKU;
-import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.context.event.EventListener;
 import org.thymeleaf.util.StringUtils;
 

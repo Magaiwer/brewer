@@ -54,11 +54,6 @@ public class VendasController {
     @Autowired
     private Mailer mailer;
 
-    @InitBinder("venda")
-    public void iniciarValidator(WebDataBinder binder) {
-        binder.setValidator(vendaValidator);
-    }
-
     @GetMapping("/nova")
     public ModelAndView nova(Venda venda) {
         ModelAndView mv = new ModelAndView("venda/CadastroVenda");
