@@ -95,7 +95,7 @@ public class VendasController {
 
         setUUID(venda);
         for (ItemVenda itemVenda : venda.getItens()) {
-            itensVenda.adicionarItem(venda.getUuid(), itemVenda.getCerveja(),itemVenda.getQuantidade());
+            itensVenda.adicionarItem(venda.getUuid(), itemVenda.getCerveja(), itemVenda.getQuantidade());
         }
         ModelAndView mv = nova(venda);
         mv.addObject(venda);
@@ -131,7 +131,7 @@ public class VendasController {
         venda = cadastroVendaService.salvar(venda);
         mailer.enviar(venda);
 
-        attributes.addFlashAttribute("mensagem", String.format("Venda n° %d salva e e-mail enviado sucesso",venda.getCodigo()));
+        attributes.addFlashAttribute("mensagem", String.format("Venda n° %d salva e e-mail enviado sucesso", venda.getCodigo()));
         return new ModelAndView("redirect:/vendas/nova");
     }
 
@@ -141,8 +141,9 @@ public class VendasController {
             cadastroVendaService.cancelar(venda);
 
         } catch (AccessDeniedException e) {
-            System.out.println(" erro aqui" + e.getMessage());
-            return new ModelAndView("/403");
+            ModelAndView mv = new ModelAndView("error");
+            mv.addObject("status", 403);
+            return mv;
         }
 
         attributes.addFlashAttribute("mensagem", "Venda cancelada com sucesso");
@@ -174,12 +175,14 @@ public class VendasController {
     }
 
     @GetMapping("/totalPorMes")
-    public @ResponseBody List<VendaMes> listarTotalVendasPorMes(){
+    public @ResponseBody
+    List<VendaMes> listarTotalVendasPorMes() {
         return vendasRepository.totalPorMes();
     }
 
     @GetMapping("/porOrigem")
-    public @ResponseBody List<VendaOrigem> listarTotalVendasPorOrigem(){
+    public @ResponseBody
+    List<VendaOrigem> listarTotalVendasPorOrigem() {
         return vendasRepository.totalPorOrigem();
     }
 

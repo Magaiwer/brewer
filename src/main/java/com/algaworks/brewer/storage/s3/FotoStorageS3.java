@@ -8,6 +8,7 @@ import net.coobird.thumbnailator.Thumbnails;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
@@ -28,6 +29,9 @@ public class FotoStorageS3 implements FotoStorage {
 
     @Autowired
     private AmazonS3 amazonS3;
+
+    @Value("${brewer.foto-storage-s3.url-base}")
+    private String urlBase;
 
     @Override
     public String salvar(MultipartFile[] files) {
@@ -79,7 +83,7 @@ public class FotoStorageS3 implements FotoStorage {
     @Override
     public String getUrl(String foto) {
         if(!StringUtils.isEmpty(foto)){
-            return "https://s3-sa-east-1.amazonaws.com/wsbrewer/" + foto;
+            return this.urlBase + foto;
         }
         return null;
     }
