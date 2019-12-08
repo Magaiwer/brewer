@@ -22,6 +22,8 @@ Principais funcionalidades:
 - Consultas em arquivos externos. 
 - Relatórios de vendas emitidas com JasperReports.
 
+# Demonstração
+![Demonstração do sistema](src/main/resources/demo/demo.gif)
 
 # Modelo ER
 ![Modelo ER](/src/main/resources/diagramas/modelo-er-brewer.png)
