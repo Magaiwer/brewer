@@ -69,12 +69,22 @@ public class ItemVenda {
         this.venda = venda;
     }
 
+
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof ItemVenda)) return false;
-        ItemVenda itemVenda = (ItemVenda) o;
-        return Objects.equals(getCodigo(), itemVenda.getCodigo());
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        ItemVenda other = (ItemVenda) obj;
+        if (codigo == null) {
+            if (other.codigo != null)
+                return false;
+        } else if (!codigo.equals(other.codigo))
+            return false;
+        return true;
     }
 
     @Override

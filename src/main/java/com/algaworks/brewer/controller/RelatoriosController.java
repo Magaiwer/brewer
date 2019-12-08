@@ -27,11 +27,16 @@ public class RelatoriosController {
     }
 
     @PostMapping("/vendasEmitidas")
-    public ResponseEntity<byte[]> gerarRelatorioVendasEmitidas(PeriodoRelatorio periodoRelatorio) throws Exception {
+    public ResponseEntity<byte[]> gerarRelatorioVendasEmitidas(PeriodoRelatorio periodoRelatorio) {
 
-        byte[] relatorio = relatorioService.gerarRelatorioVendasEmitidas(periodoRelatorio);
+        try {
+            byte[] relatorio = relatorioService.gerarRelatorioVendasEmitidas(periodoRelatorio);
+            return ResponseEntity.ok().header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_PDF_VALUE).body(relatorio);
 
-        return ResponseEntity.ok().header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_PDF_VALUE).body(relatorio);
+        } catch (Exception e) {
+            return ResponseEntity.noContent().build();
+        }
+
 
     }
 

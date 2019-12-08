@@ -23,7 +23,6 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -84,6 +83,9 @@ public class VendasController {
         if (result.hasErrors()) {
             return nova(venda);
         }
+
+		venda.setUsuario(usuarioSistema.getUsuario());
+
         cadastroVendaService.salvar(venda);
         attributes.addFlashAttribute("mensagem", "Venda salva com sucesso");
         return new ModelAndView("redirect:/vendas/nova");
@@ -116,6 +118,8 @@ public class VendasController {
             return nova(venda);
         }
 
+		venda.setUsuario(usuarioSistema.getUsuario());
+
         cadastroVendaService.emitir(venda);
         attributes.addFlashAttribute("mensagem", "Venda emitida com sucesso");
         return new ModelAndView("redirect:/vendas/nova");
@@ -128,11 +132,28 @@ public class VendasController {
             return nova(venda);
         }
 
+		venda.setUsuario(usuarioSistema.getUsuario());
+
         venda = cadastroVendaService.salvar(venda);
         mailer.enviar(venda);
 
         attributes.addFlashAttribute("mensagem", String.format("Venda n° %d salva e e-mail enviado sucesso", venda.getCodigo()));
         return new ModelAndView("redirect:/vendas/nova");
+    }
+
+    @PostMapping("/item")
+    public @ResponseBody
+    ModelAndView adicionarItem(Long codigoCerveja, String uuid) {
+        Cerveja cerveja = cervejas.getOne(codigoCerveja);
+        itensVenda.adicionarItem(uuid, cerveja, 1);
+
+        return getModelAndViewTabelaItens(uuid);
+    }
+
+    @PutMapping("/item/{codigoCerveja}")
+    public ModelAndView alterarQuantidadeItem(@PathVariable("codigoCerveja") Cerveja cerveja, Integer quantidade, String uuid) {
+        itensVenda.alterarQuantidadeItens(uuid, cerveja, quantidade);
+        return getModelAndViewTabelaItens(uuid);
     }
 
     @PostMapping(value = "/nova", params = "cancelar")
@@ -148,23 +169,6 @@ public class VendasController {
 
         attributes.addFlashAttribute("mensagem", "Venda cancelada com sucesso");
         return new ModelAndView("redirect:/vendas/" + venda.getCodigo());
-    }
-
-    @PostMapping("/item")
-    public @ResponseBody
-    ModelAndView adicionarItem(Long codigoCerveja, String uuid) {
-        Cerveja cerveja = cervejas.getOne(codigoCerveja);
-        itensVenda.adicionarItem(uuid, cerveja, 1);
-
-        return getModelAndViewTabelaItens(uuid);
-    }
-
-    @PutMapping("/item/{codigoCerveja}")
-    public ModelAndView alterarQuantidadeItem(@PathVariable Long codigoCerveja, Integer quantidade, String uuid) {
-        Cerveja cerveja = cervejas.getOne(codigoCerveja);
-        itensVenda.alterarQuantidadeItens(uuid, cerveja, quantidade);
-
-        return getModelAndViewTabelaItens(uuid);
     }
 
 
