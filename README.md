@@ -29,7 +29,7 @@ Principais funcionalidades:
 ![Modelo ER](/src/main/resources/diagramas/modelo-er-brewer.png)
 
 
-# Casos de uso
+# Diagramas de classe
 ![Casos de uso](/src/main/resources/diagramas/casos-de-uso-brewer.png)
 
 
