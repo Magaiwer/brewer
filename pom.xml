@@ -38,7 +38,7 @@
         <jasperreports-fonts.version>6.0.0</jasperreports-fonts.version>
 
         <!--S3-->
-        <aws-java-sdk-s3.version>1.10.77</aws-java-sdk-s3.version>
+        <aws-java-sdk-s3.version>1.12.261</aws-java-sdk-s3.version>
     </properties>
     <dependencies>
         <dependency>
